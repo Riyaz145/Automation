@@ -1,0 +1,25 @@
+==============================
+[security group need to add]
+==============================
+
+
+
+---
+- hosts: localhost
+  become: true
+  tasks:
+   - name: Install base packages
+     apt: name={{ item }} state=installed
+     with_items:
+       - python-pip
+       - python3-pip
+   - pip:
+      name: boto
+   - ec2:
+      key_name: id_rsa_pub
+      ec2_region: us-east-2
+      ec2_access_key: AKIAJ2ZILAQSL46BJJDA
+      ec2_secret_key: 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
+      instance_type: t2.micro
+      image: ami-0b500ef59d8335eee
+      wait: yes

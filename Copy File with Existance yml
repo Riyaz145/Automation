@@ -1,0 +1,13 @@
+---
+- hosts: ubuntu
+  become: true
+  tasks:
+  - name: checking for file existance
+    stat:
+      path:in which path u want tocheck file is available or not
+      register:result
+  - name: copying file
+    copy:
+     src:
+     dest:
+     when: result is success 

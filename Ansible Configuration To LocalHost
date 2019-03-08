@@ -1,0 +1,18 @@
+Ansible
+=================================
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install ansible
+--------------------
+sudo amazon-linux-extras install ansible2
+
+===============================================================
+How To Configure Ansible In Your Localhost System.
+
+1.Yum install Ansible after it
+2.Go to hosts file of ansible 
+3.And write "localhost" and save it
+4.Run ssh-keygen command and simply enter 3 times
+5.Run ssh-copy-id root@localhost and enter
+	add passwd to root
+6.Varify your hosts file (ansible all --list-hosts)
+7.Now you can run your ansible command(ansible all -m command -a date)

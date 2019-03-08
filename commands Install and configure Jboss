@@ -1,0 +1,80 @@
+
+nmap -sT -o localhost
+
+Installing JBoss 7.1.1. on centos
+---------------------------------------
+Step 1: JDK installation and verification
+Step 2: Download JBoss and the installation procedure
+Step 3: Create the appropriate user
+Step 4: Start our new JBoss server and verify that the server has started properly
+Step 5: Stop the new JBoss server and verify that the server has shutdown properly
+
+--------------------------------------------------------
+Step 1: JDK Installation and verification
+	
+yum install java
+java -version
+
+
+Step 2: Download JBoss and the installation procedure
+
+wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip
+
+unzip jboss-as-7.1.1.Final.zip -d /usr/share
+
+Step 3: Create the appropriate user
+
+adduser jboss
+
+Change ownership of the installation directory:
+We need to assign the appropriate ownership to the installation directory for the newly created jboss user by issuing the command:
+
+--chown -fR jboss.jboss /usr/share/jboss-as-7.1.1.Final/
+
+Switch user to the jboss user:
+We switch to the jBoss user, so that this new installation can be administered properly. It is not recommended to administer JBoss as root.
+
+$ su jboss
+
+Change directory to the jboss bin directory:
+cd /usr/share/jboss-as-7.1.1.Final/bin/
+Add a jboss management user:
+The final step before we start JBoss, is to add a management user. This is an internal JBoss management user, necessary to access the new JBoss management console.
+
+$ ./add-user.sh
+
+You should see the following message on the console after executing the command:
+
+What type of user do you wish to add?
+a) Management User (mgmt-users.properties)
+
+b) Application User (application-users.properties)
+
+(a): a
+
+We select “a”, next you should see the following message:
+
+Enter the details of the new user to add.
+Realm (ManagementRealm) :
+
+Username : jboss
+
+Password :
+
+Re-enter Password :
+
+* hit enter for Realm to use default, then provide a username and password
+
+We select the default value for the Realm (ManagementRealm), by hitting enter, and select “jboss” as our username. By default, we supply “jb0ss” as our password, of course, you can provide any password you prefer here.
+
+Step 4: Start the JBoss AS 7 server:
+Once the appropriate JBoss users are created, we are now ready to start our new JBoss AS 7 server. With JBoss AS 7, a new standalone and domain model has been introduced. In this tutorial, we focus on starting up a standalone server. The domain server will be part of a future tutorial.
+
+Startup a JBoss 7, standalone instance:
+A standalone instance of JBoss 7 can be starting by executing:
+
+$ ./standalone.sh -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0&
+
+NOTE: By default, JBoss 7 will only bind to localhost. This does not allow any remote access to your jboss server. For our amazon aws installation, we define the jboss.bind.address property as 0.0.0.0 and jboss.bin.address.management property to 0.0.0.0 as well. This allows us to access the remote JBoss amazon instance over the internet. We could have also defined the hostname of the ami or the ip address. However, unless an elastic ip is used, this value can change. This is why we opted for 0.0.0.0.
+
+

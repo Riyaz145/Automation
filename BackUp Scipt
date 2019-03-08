@@ -1,0 +1,21 @@
+backup_files="/etc/sudoers"
+dest="/home/backup"
+day=$(date +%y-%m-%d)
+hostname=$(hostname -s)
+archive_file="$hostname-$day.tar.gz"
+
+
+echo "Backing up $bacup_files to $dest/$archive_file"
+date
+echo
+
+tar czf $dest/$archive_file $backup_files
+
+echo
+echo "backup finished"
+date
+
+
+----------------------------------------------------------------------------------------------------
+link:https://community.spiceworks.com/topic/1085434-a-short-simple-bash-script-for-automated-backups
+----------------------------------------------------------------------------------------------------

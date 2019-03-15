@@ -29,3 +29,5 @@ sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 sudo yum install jenkins
 sudo systemctl start jenkins
 systemctl status jenkins
+
+yum install java-1.8.0-openjdk-devel

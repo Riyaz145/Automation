@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+
+clear
+echo " ENTER THE PATH :"
+read path
+
+
+echo " THANK YOU INFORMATION, SYSTEM IS ABOUT TO DELETE JSON FILES"
+echo "____________________________________________________________________"
+
+sleep 4
+
+cd $path
+
+find . -name "*.json" -type f|xargs rm -f
